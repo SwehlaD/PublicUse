@@ -25,10 +25,19 @@
             width: 90%;
         }
 
+        .contact-container img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
         h1 {
             text-align: center;
             margin-bottom: 20px;
         }
+
+
 
         form {
             width: 100%;
@@ -36,6 +45,7 @@
             flex-direction: column;
             gap: 15px;
         }
+
 
         input, textarea {
             padding: 10px;
@@ -60,58 +70,68 @@
         button:hover {
             background-color: #0056b3;
         }
-
-        #message {
-            margin-top: 15px;
-            font-weight: bold;
-        }
     </style>
+
+
+
+
+
 </head>
 <body>
 
 <div class="contact-container">
     <h1>G Clean</h1>
-    <img src="drone.jpg" alt="Drone Image" style="max-width:80%; border-radius:12px; margin-bottom:30px;">
 
-    <form id="contactForm">
-        <h3 style="text-align:center;">Contact G Clean!</h3>
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="text" name="phone" placeholder="Phone">
-        <textarea name="comments" placeholder="Comments" required></textarea>
-        <button type="submit">Submit</button>
+    <img src="drone.jpg" alt="Drone Image">
+    
+    <form action="https://script.google.com/macros/s/AKfycbyOajNmxt0DQqHtjZ8r7rCVD1p46B3xZ8HqhZD667cjy_5qd7YA8QkFXG-cjp_W-LWo/exec" method="POST">
+      <h3 style="text-align: center;">Contact G Clean!</h3>
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="phone" placeholder="Phone">
+      <textarea name="comments" placeholder="Comments" required></textarea>
+      <button type="submit">Submit</button>
     </form>
 
-    <div id="message"></div>
+<div id="message"></div>
+ <div id="message"></div>
 </div>
 
+
+    <!-- Hidden iframe to handle submission -->
 <script>
-const form = document.getElementById("contactForm");
-const messageDiv = document.getElementById("message");
-const scriptURL = "https://script.google.com/macros/s/AKfycbyOajNmxt0DQqHtjZ8r7rCVD1p46B3xZ8HqhZD667cjy_5qd7YA8QkFXG-cjp_W-LWo/exec";
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+document.getElementById("myForm").addEventListener("submit", function(e) {
+  </div>
+    e.preventDefault();  // Prevent page refresh
 
-form.addEventListener("submit", function(e) {
-    e.preventDefault(); // prevent page refresh
-    const formData = new FormData(form);
 
-    fetch(scriptURL, { method: "POST", body: formData })
-        .then(response => {
-            messageDiv.textContent = "Message sent successfully!";
-            messageDiv.style.color = "green";
-            form.reset();
-        })
-        .catch(error => {
-            messageDiv.textContent = "Error sending message: " + error.message;
-            messageDiv.style.color = "red";
-        });
+  <script>
+    const formData = new FormData(this);
+    // Listen for messages from iframe
+    const data = new URLSearchParams(formData);
+    window.addEventListener("message", function(e) {
+
+      const msgDiv = document.getElementById("message");
+
+      if (e.data === "success") {
+    fetch("https://script.google.com/macros/s/AKfycbyOajNmxt0DQqHtjZ8r7rCVD1p46B3xZ8HqhZD667cjy_5qd7YA8QkFXG-cjp_W-LWo/exec", { method: "POST", body: data})
+        msgDiv.textContent = "Message sent successfully!";
+    .then(response => response.json())
+        msgDiv.style.color = "green";
+    .then(result => {
+        document.getElementById("contactForm").reset();
+        const message = document.createElement('p');
+      } else if (e.data.startsWith("error")) {
+    message.textContent = "Message sent successfully!";
+        msgDiv.textContent = "Error sending message: " + e.data.replace("error:","").trim();
+    message.style.color = "green";
+        msgDiv.style.color = "red";
+    this.appendChild(message);
+      }
 });
 </script>
 
 </body>
 </html>
-
-
-</body>
-</html>
-
 
