@@ -84,6 +84,8 @@
         <textarea id="comments" name="comments" rows="5" placeholder="Tell us your reason for contacting us..." required></textarea>
         <button type="submit">Submit</button>
     </form>
+    <button id="downloadReports">Download All Reports</button>
+
 </div>
 
 <script>
@@ -112,6 +114,34 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
     alert("Message saved locally!");
 });
 </script>
+
+<script>
+document.getElementById("downloadReports").addEventListener("click", function() {
+    const reports = JSON.parse(localStorage.getItem("reports")) || [];
+    if (reports.length === 0) {
+        alert("No reports to download.");
+        return;
+    }
+
+    let text = "ALL CONTACT REPORTS\n\n";
+    reports.forEach((r, i) => {
+        text += `Report #${i + 1}\n`;
+        text += `Date: ${r.date}\n`;
+        text += `Name: ${r.name}\n`;
+        text += `Email: ${r.email}\n`;
+        text += `Phone: ${r.phone}\n`;
+        text += `Comments:\n${r.comments}\n`;
+        text += "------------------------\n\n";
+    });
+
+    const blob = new Blob([text], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "all_reports.txt";
+    link.click();
+});
+</script>
+
 
 </body>
 </html>
