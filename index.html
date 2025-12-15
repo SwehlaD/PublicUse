@@ -1,77 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Contact G Clean</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-    }
+    <title>Contact Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
 
-    .contact-container {
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 700px;
-      width: 90%;
-    }
+        .contact-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 700px;
+            width: 90%;
+        }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+        .contact-container img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
 
-    form {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    input, textarea, button {
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      width: 100%;
-      box-sizing: border-box;
-    }
 
-    input, textarea {
-      border: 1px solid #ccc;
-    }
 
-    button {
-      background-color: #007BFF;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-    button:hover {
-      background-color: #0056b3;
-    }
 
-    #message {
-      margin-top: 15px;
-      font-weight: bold;
-    }
-  </style>
+        input, textarea {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+
+
+
+
 </head>
 <body>
-  <div class="contact-container">
+
+<div class="contact-container">
     <h1>G Clean</h1>
 
-    <form id="contactForm" action="https://script.google.com/macros/s/AKfycbyOajNmxt0DQqHtjZ8r7rCVD1p46B3xZ8HqhZD667cjy_5qd7YA8QkFXG-cjp_W-LWo/exec" method="POST" target="hidden_iframe">
+    <img src="drone.jpg" alt="Drone Image">
+    
+    <form action="https://script.google.com/macros/s/AKfy…/exec" method="POST">
+      <h3 style="text-align: center;">Contact G Clean!</h3>
       <input type="text" name="name" placeholder="Name" required>
       <input type="email" name="email" placeholder="Email" required>
       <input type="text" name="phone" placeholder="Phone">
@@ -79,26 +93,45 @@
       <button type="submit">Submit</button>
     </form>
 
-    <div id="message"></div>
+<div id="message"></div>
+ <div id="message"></div>
+</div>
+
 
     <!-- Hidden iframe to handle submission -->
+<script>
     <iframe name="hidden_iframe" style="display:none;"></iframe>
+document.getElementById("myForm").addEventListener("submit", function(e) {
   </div>
+    e.preventDefault();  // Prevent page refresh
+
 
   <script>
+    const formData = new FormData(this);
     // Listen for messages from iframe
+    const data = new URLSearchParams(formData);
     window.addEventListener("message", function(e) {
+
       const msgDiv = document.getElementById("message");
+
       if (e.data === "success") {
+    fetch("https://script.google.com/macros/s/AKfycbyOajNmxt0DQqHtjZ8r7rCVD1p46B3xZ8HqhZD667cjy_5qd7YA8QkFXG-cjp_W-LWo/exec", { method: "POST", body: data})
         msgDiv.textContent = "Message sent successfully!";
+    .then(response => response.json())
         msgDiv.style.color = "green";
+    .then(result => {
         document.getElementById("contactForm").reset();
+        const message = document.createElement('p');
       } else if (e.data.startsWith("error")) {
+    message.textContent = "Message sent successfully!";
         msgDiv.textContent = "Error sending message: " + e.data.replace("error:","").trim();
+    message.style.color = "green";
         msgDiv.style.color = "red";
+    this.appendChild(message);
       }
-    });
-  </script>
+});
+</script>
+
 </body>
 </html>
 
