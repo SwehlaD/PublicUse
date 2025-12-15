@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .contact-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 700px;
+            width: 90%;
+        }
+
+        .contact-container img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, textarea {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contact-container">
+    <h1>Contact Us</h1>
+
+    <!-- Image from repo -->
+    <img src="drone.jpg" alt="Drone Image">
+
+    <form id="myForm">
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <input type="text" id="phone" name="phone" placeholder="Phone number">
+        <textarea id="comments" name="comments" rows="5" placeholder="Tell us your reason for contacting us..." required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    // Get existing reports from localStorage or empty array
+    let reports = JSON.parse(localStorage.getItem("reports")) || [];
+
+    // Create a new report object
+    const report = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        comments: document.getElementById("comments").value,
+        date: new Date().toLocaleString()
+    };
+
+    // Save it to the array and update localStorage
+    reports.push(report);
+    localStorage.setItem("reports", JSON.stringify(reports));
+
+    // Reset form
+    document.getElementById("myForm").reset();
+
+    alert("Message saved locally!");
+});
+</script>
+
+</body>
+</html>
