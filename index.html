@@ -93,10 +93,7 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
     const formData = new FormData(this);
     const data = new URLSearchParams(formData);
 
-    fetch("https://script.google.com/macros/s/AKfycbyOajNmxt0DQqHtjZ8r7rCVD1p46B3xZ8HqhZD667cjy_5qd7YA8QkFXG-cjp_W-LWo/exec", {  // Replace with your Google Apps Script URL
-        method: "POST",
-        body: data
-    })
+    fetch("https://script.google.com/macros/s/AKfycbyOajNmxt0DQqHtjZ8r7rCVD1p46B3xZ8HqhZD667cjy_5qd7YA8QkFXG-cjp_W-LWo/exec", { method: "doPost", body: data})
     .then(response => response.json())
     .then(result => {
         alert("Message sent successfully!");
