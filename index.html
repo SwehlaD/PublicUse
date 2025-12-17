@@ -96,6 +96,44 @@
 <div id="message"></div>
  <div id="message"></div>
 </div>
+.flex-container {
+  display: flex;
+  justify-content: space-around;
+}
+.flex-item {
+  background-color: cyan;
+  padding: 20px;
+  margin: 2px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 10px;
+}
+.grid-item {
+  background-color: orange;
+  padding: 20px;
+}
+.item-1 {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+}
+.item-2 {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+}
+.item-3 {
+  grid-column: 1;
+  grid-row: 2 / span 2;
+}
+.item-4 {
+  grid-column: 2 / span 2;
+  grid-row: 3;
+}
+.item-6 {
+  grid-column: 1 / span 3;
+}
 
 
     <!-- Hidden iframe to handle submission -->
